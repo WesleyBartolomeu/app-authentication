@@ -51,7 +51,7 @@ export async function miffleware(req) {
     console.log({user})
 
     if  (user && req.nextUrl.pathname === '/') {
-        return NextResponse.redirect(new URL('/photos', req.url))
+        return NextResponse.redirect(new URL('/dashboard', req.url))
     }
 
     if  (!user && req.nextUrl.pathname === '/') {
@@ -61,5 +61,5 @@ export async function miffleware(req) {
 }
 
 export const config = {
-    matcher: ['/' , '/photos']
+    matcher: ['/' , '/dashboard']
 }

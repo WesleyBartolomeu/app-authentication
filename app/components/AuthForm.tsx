@@ -21,7 +21,7 @@ export default function AuthForm() {
         })
         console.log({error, data})
         if (!error) {
-        router.push('/photos')
+        router.push('/dashboard')
         } else {
             setisSigningUp(false)
             console.log('Erro ao logar')

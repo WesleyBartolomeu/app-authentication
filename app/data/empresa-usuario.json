@@ -1,0 +1,38 @@
+[
+    {
+      "COD": 207,
+      "RAZÃO SOCIAL": "FARPEX - ALUMINIO EIRELI",
+      "CNPJ": "31058245/0001-01",
+      "TRIBUTAÇÃO": "PRESUMIDO",
+      "RESPONSÁVEL": "CARLOS",
+      "DocumentoLançamentoFiscal": "atrasado - 06",
+      "FolhaPatrimônio": "Sim",
+      "Conciliação": "Sim",
+      "StatusFolha2": "BARBOSA",
+      "Pro Labore": "Ativa",
+      "GRUPO": "Banco",
+      "Situação": "Escritório Inteligente",
+      "Perfil 1": "Relatórios Financeiros",
+      "Perfil 2": "E-mail",
+      "DocumentosRecebimento": 437,
+      "OBSERVAÇÃO": null
+    },
+    {
+      "COD": 437,
+      "RAZÃO SOCIAL": "FARPEX - ALUMINIO EIRELI - FILIAL",
+      "CNPJ": "31058245/0002-84",
+      "TRIBUTAÇÃO": "PRESUMIDO",
+      "RESPONSÁVEL": "CARLOS",
+      "DocumentoLançamentoFiscal": "atrasado - 06",
+      "FolhaPatrimônio": "Sim",
+      "Conciliação": "Não",
+      "StatusFolha2": "BARBOSA",
+      "Pro Labore": "Ativa",
+      "GRUPO": "Banco",
+      "Situação": "Escritório Inteligente",
+      "Perfil 1": "Relatórios Financeiros",
+      "Perfil 2": "E-mail",
+      "DocumentosRecebimento": null,
+      "OBSERVAÇÃO": null
+    }
+  ]
