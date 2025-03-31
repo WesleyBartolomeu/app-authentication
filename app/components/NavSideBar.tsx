@@ -97,6 +97,12 @@ const NavSideBar = () => {
                         </Link>
                     </li>
                     <li>
+                        <Link href="/resume" className={navItemClasses}>
+                            <FontAwesomeIcon icon={faTable} className="h-5 w-5" />
+                            <span className={navLinkClasses}>Resumo</span>
+                        </Link>
+                    </li>
+                    <li>
                         <Link href="/settings" className={navItemClasses}>
                             <FontAwesomeIcon icon={faSliders} className="h-5 w-5" />
                             <span className={navLinkClasses}>Configurações</span>
