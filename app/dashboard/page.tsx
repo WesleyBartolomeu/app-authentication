@@ -6,7 +6,7 @@ import CompanySummary from '../components/CompanySumary'; // Certifique-se que o
 
 interface Company {
   COD: number;
-  'RAZÃO SOCIAL': string;
+  razao_social: string;
   CNPJ: string;
   TRIBUTAÇÃO: string;
   RESPONSÁVEL: string;
@@ -14,11 +14,11 @@ interface Company {
   FolhaPatrimônio: string | null | undefined;
   Conciliação: string | null | undefined;
   StatusFolha2: string | null | undefined;
-  'Pro Labore': string | null | undefined;
+  pro_labore: string | null | undefined;
   GRUPO: string | null | undefined;
   Situação: string | null | undefined;
-  'Perfil 1': string | null | undefined;
-  'Perfil 2': string | null | undefined;
+  perfil_1: string | null | undefined;
+  perfil_2: string | null | undefined;
   DocumentosRecebimento: number | null | undefined;
   OBSERVAÇÃO: string | null | undefined;
 }

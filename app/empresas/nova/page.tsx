@@ -43,15 +43,15 @@ const NovaEmpresaPage = () => {
     const { data, error } = await supabase
       .from('cadastro_empresas')
       .insert([formData])
-      .select(); // Seleciona os dados inseridos para confirmar
+      .select(); 
 
     if (error) {
       setErrorMessage(`Erro ao criar empresa: ${error.message}`);
     } else if (data && data.length > 0) {
       setSuccessMessage('Empresa criada com sucesso!');
-      // Redirecionar para o Dashboard após alguns segundos
+
       setTimeout(() => {
-        router.push('/dashboard'); // Ou a página onde você lista as empresas
+        router.push('/dashboard'); 
       }, 1500);
     }
   };

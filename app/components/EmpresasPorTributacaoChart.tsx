@@ -7,7 +7,6 @@ interface Company {
   'RAZÃO SOCIAL': string;
   CNPJ: string;
   TRIBUTAÇÃO: string;
-  // ... outras propriedades
 }
 
 const EmpresasPorTributacaoChart = () => {

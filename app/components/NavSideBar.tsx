@@ -91,9 +91,9 @@ const NavSideBar = () => {
                         </Link>
                     </li>
                     <li>
-                        <Link href="/profile" className={navItemClasses}>
+                        <Link href="/empresas/nova" className={navItemClasses}>
                             <FontAwesomeIcon icon={faTable} className="h-5 w-5" />
-                            <span className={navLinkClasses}>Minha Planilha</span>
+                            <span className={navLinkClasses}>Nova Empresa</span>
                         </Link>
                     </li>
                     <li>
