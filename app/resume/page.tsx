@@ -55,6 +55,24 @@ const PaginaResumoEmpresas = () => {
     }[];
   } | null>({ labels: [], datasets: [] });
 
+  const [empresasPorStatusFolha2Data, setEmpresasPorStatusFolha2Data] = useState<{
+    labels: string[];
+    datasets: {
+      label: string;
+      data: number[];
+      backgroundColor: string[];
+    }[];
+  } | null>({ labels: [], datasets: [] });
+
+  const [empresasPorSituacaoData, setEmpresasPorSituacaoData] = useState<{
+    labels: string[];
+    datasets: {
+      label: string;
+      data: number[];
+      backgroundColor: string[];
+    }[];
+  } | null>({ labels: [], datasets: [] });
+
   useEffect(() => {
     const fetchCompanies = async () => {
       const { data, error } = await supabase.from('cadastro_empresas').select('*');
@@ -89,7 +107,7 @@ const PaginaResumoEmpresas = () => {
             label: 'Número de Empresas',
             data: Object.values(responsavelCounts),
             backgroundColor: ['rgba(54, 162, 235, 0.8)', 'rgba(255, 99, 132, 0.8)', 'rgba(255, 206, 86, 0.8)', 'rgba(75, 192, 192, 0.8)', 'rgba(153, 102, 255, 0.8)', 'rgba(255, 159, 64, 0.8)'],
-        },
+          },
         ],
       });
 
@@ -106,7 +124,7 @@ const PaginaResumoEmpresas = () => {
             label: 'Número de Empresas',
             data: Object.values(tributacaoCounts),
             backgroundColor: ['rgba(255, 99, 132, 0.8)', 'rgba(54, 162, 235, 0.8)', 'rgba(255, 206, 86, 0.8)', 'rgba(75, 192, 192, 0.8)', 'rgba(153, 102, 255, 0.8)', 'rgba(255, 159, 64, 0.8)'],
-        },
+          },
         ],
       });
 
@@ -120,7 +138,41 @@ const PaginaResumoEmpresas = () => {
             label: 'Número de Empresas',
             data: [proLaboreCount, semProLaboreCount],
             backgroundColor: ['rgba(75, 192, 192, 0.8)', 'rgba(255, 206, 86, 0.8)'],
-        },
+          },
+        ],
+      });
+
+      // Processar dados para Empresas por Status Folha 2
+      const statusFolha2Counts: { [key: string]: number } = {};
+      companies.forEach((company) => {
+        const status = company.StatusFolha2 || 'Não Informado'; // Lidar com valores nulos/undefined
+        statusFolha2Counts[status] = (statusFolha2Counts[status] || 0) + 1;
+      });
+      setEmpresasPorStatusFolha2Data({
+        labels: Object.keys(statusFolha2Counts),
+        datasets: [
+          {
+            label: 'Número de Empresas',
+            data: Object.values(statusFolha2Counts),
+            backgroundColor: ['rgba(255, 205, 86, 0.8)', 'rgba(75, 192, 192, 0.8)', 'rgba(153, 102, 255, 0.8)', 'rgba(255, 159, 64, 0.8)', 'rgba(100, 200, 150, 0.8)'],
+          },
+        ],
+      });
+
+      // Processar dados para Empresas por Situação
+      const situacaoCounts: { [key: string]: number } = {};
+      companies.forEach((company) => {
+        const situacao = company.Situação || 'Não Informado'; // Lidar com valores nulos/undefined
+        situacaoCounts[situacao] = (situacaoCounts[situacao] || 0) + 1;
+      });
+      setEmpresasPorSituacaoData({
+        labels: Object.keys(situacaoCounts),
+        datasets: [
+          {
+            label: 'Número de Empresas',
+            data: Object.values(situacaoCounts),
+            backgroundColor: ['rgba(255, 159, 64, 0.8)', 'rgba(153, 102, 255, 0.8)', 'rgba(75, 192, 192, 0.8)', 'rgba(255, 205, 86, 0.8)', 'rgba(54, 162, 235, 0.8)'],
+          },
         ],
       });
     }
@@ -143,30 +195,44 @@ const PaginaResumoEmpresas = () => {
   return (
     <div className="container my-20 mx-auto py-8">
       <h1 className="text-2xl font-semibold mb-4">Resumo Geral das Empresas</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="flex flex-wrap gap-4">
         {empresasPorResponsavelData && (
-          <div className="mb-8 p-4 bg-white rounded shadow max-w-xl mx-auto max-h-[350px]">
+          <div className="mb-8 p-4 bg-white text-stone-700 rounded shadow max-w-xl mx-auto max-h-[350px]">
             <h2 className="text-xl font-semibold mb-2">Empresas por Responsável</h2>
-            <Bar data={empresasPorResponsavelData} options={chartOptions} />
+            <Pie data={empresasPorResponsavelData} options={chartOptions} />
           </div>
         )}
 
         {empresasPorTributacaoData && (
-          <div className="mb-8 p-4 bg-white rounded shadow max-w-xl mx-auto max-h-[350px]">
+          <div className="mb-8 p-4 bg-white text-stone-700 rounded shadow max-w-xl mx-auto max-h-[350px]">
             <h2 className="text-xl font-semibold mb-2">Empresas por Tipo de Tributação</h2>
             <Bar data={empresasPorTributacaoData} options={chartOptions} />
           </div>
         )}
 
         {empresasComProLaboreData && (
-          <div className="mb-8 p-4 bg-white rounded shadow max-w-md mx-auto max-h-[350px]">
-            <h2 className="text-xl font-semibold mb-2">Empresas com Pró Labore</h2>
+          <div className="mb-8 p-4 bg-white text-stone-700 rounded shadow max-w-md mx-auto max-h-[350px]">
+            <h2 className="text-xl stone-600 font-semibold mb-2">Empresas com Pró Labore</h2>
             <Pie data={empresasComProLaboreData} options={chartOptions} />
+          </div>
+        )}
+
+        {empresasPorStatusFolha2Data && (
+          <div className="mb-8 p-4 bg-white text-stone-700 rounded shadow max-w-xl mx-auto max-h-[350px]">
+            <h2 className="text-xl font-semibold mb-2">Empresas por Status Folha 2</h2>
+            <Bar data={empresasPorStatusFolha2Data} options={chartOptions} />
+          </div>
+        )}
+
+        {empresasPorSituacaoData && (
+          <div className="mb-8 p-4 bg-white text-stone-700 rounded shadow max-w-xl mx-auto max-h-[350px]">
+            <h2 className="text-xl font-semibold mb-2">Empresas por Situação</h2>
+            <Bar data={empresasPorSituacaoData} options={chartOptions} />
           </div>
         )}
       </div>
 
-      {!empresasPorResponsavelData && !empresasPorTributacaoData && !empresasComProLaboreData && (
+      {!empresasPorResponsavelData && !empresasPorTributacaoData && !empresasComProLaboreData && !empresasPorStatusFolha2Data && !empresasPorSituacaoData && (
         <p>Carregando dados do resumo...</p>
       )}
     </div>
