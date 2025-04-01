@@ -2,10 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../utils/supabaseClient'; // Ajuste o caminho
-import { Bar, Pie } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, PieController, ArcElement, Title, Tooltip, Legend } from 'chart.js';
-
-ChartJS.register(CategoryScale, LinearScale, BarElement, PieController, ArcElement, Title, Tooltip, Legend);
+import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, PolarAngleAxis, PolarRadiusAxis, PolarGrid, RadialBarChart, RadialBar, Tooltip, Legend } from 'recharts';
 
 interface Company {
   COD: number;
@@ -26,52 +23,25 @@ interface Company {
   OBSERVAÇÃO: string | null | undefined;
 }
 
-const PaginaResumoEmpresas = () => {
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d'];
+
+const PaginaResumoEmpresasRecharts = () => {
   const [companies, setCompanies] = useState<Company[]>([]);
-  const [empresasPorResponsavelData, setEmpresasPorResponsavelData] = useState<{
-    labels: string[];
-    datasets: {
-      label: string;
-      data: number[];
-      backgroundColor: string[];
-    }[];
-  } | null>({ labels: [], datasets: [] });
-
-  const [empresasPorTributacaoData, setEmpresasPorTributacaoData] = useState<{
-    labels: string[];
-    datasets: {
-      label: string;
-      data: number[];
-      backgroundColor: string[];
-    }[];
-  } | null>({ labels: [], datasets: [] });
-
-  const [empresasComProLaboreData, setEmpresasComProLaboreData] = useState<{
-    labels: string[];
-    datasets: {
-      label: string;
-      data: number[];
-      backgroundColor: string[];
-    }[];
-  } | null>({ labels: [], datasets: [] });
-
-  const [empresasPorStatusFolha2Data, setEmpresasPorStatusFolha2Data] = useState<{
-    labels: string[];
-    datasets: {
-      label: string;
-      data: number[];
-      backgroundColor: string[];
-    }[];
-  } | null>({ labels: [], datasets: [] });
-
-  const [empresasPorSituacaoData, setEmpresasPorSituacaoData] = useState<{
-    labels: string[];
-    datasets: {
-      label: string;
-      data: number[];
-      backgroundColor: string[];
-    }[];
-  } | null>({ labels: [], datasets: [] });
+  const [empresasPorResponsavelData, setEmpresasPorResponsavelData] = useState<
+    { name: string; value: number; fill: string }[] | null
+  >(null);
+  const [empresasPorTributacaoData, setEmpresasPorTributacaoData] = useState<
+    { name: string; value: number; fill: string }[] | null
+  >(null);
+  const [empresasComProLaboreData, setEmpresasComProLaboreData] = useState<
+    { name: string; value: number; fill: string }[] | null
+  >(null);
+  const [empresasPorStatusFolha2Data, setEmpresasPorStatusFolha2Data] = useState<
+    { name: string; value: number }[] | null
+  >(null);
+  const [empresasPorSituacaoData, setEmpresasPorSituacaoData] = useState<
+    { name: string; value: number }[] | null
+  >(null);
 
   useEffect(() => {
     const fetchCompanies = async () => {
@@ -94,140 +64,152 @@ const PaginaResumoEmpresas = () => {
 
   useEffect(() => {
     if (companies.length > 0) {
-      // Processar dados para Empresas por Responsável
+      // Processar dados para Empresas por Responsável (Pie Chart)
       const responsavelCounts: { [key: string]: number } = {};
       companies.forEach((company) => {
         const responsavel = company.RESPONSÁVEL;
         responsavelCounts[responsavel] = (responsavelCounts[responsavel] || 0) + 1;
       });
-      setEmpresasPorResponsavelData({
-        labels: Object.keys(responsavelCounts),
-        datasets: [
-          {
-            label: 'Número de Empresas',
-            data: Object.values(responsavelCounts),
-            backgroundColor: ['rgba(54, 162, 235, 0.8)', 'rgba(255, 99, 132, 0.8)', 'rgba(255, 206, 86, 0.8)', 'rgba(75, 192, 192, 0.8)', 'rgba(153, 102, 255, 0.8)', 'rgba(255, 159, 64, 0.8)'],
-          },
-        ],
-      });
+      setEmpresasPorResponsavelData(
+        Object.keys(responsavelCounts).map((key, index) => ({
+          name: key,
+          value: responsavelCounts[key],
+          fill: COLORS[index % COLORS.length],
+        }))
+      );
 
-      // Processar dados para Empresas por Tributação
+      // Processar dados para Empresas por Tributação (RadialBar Chart)
       const tributacaoCounts: { [key: string]: number } = {};
       companies.forEach((company) => {
         const tributacao = company.TRIBUTAÇÃO;
         tributacaoCounts[tributacao] = (tributacaoCounts[tributacao] || 0) + 1;
       });
-      setEmpresasPorTributacaoData({
-        labels: Object.keys(tributacaoCounts),
-        datasets: [
-          {
-            label: 'Número de Empresas',
-            data: Object.values(tributacaoCounts),
-            backgroundColor: ['rgba(255, 99, 132, 0.8)', 'rgba(54, 162, 235, 0.8)', 'rgba(255, 206, 86, 0.8)', 'rgba(75, 192, 192, 0.8)', 'rgba(153, 102, 255, 0.8)', 'rgba(255, 159, 64, 0.8)'],
-          },
-        ],
-      });
+      setEmpresasPorTributacaoData(
+        Object.keys(tributacaoCounts).map((key, index) => ({
+          name: key,
+          value: tributacaoCounts[key],
+          fill: COLORS[index % COLORS.length],
+        }))
+      );
 
-      // Processar dados para Empresas com Pró Labore
+      // Processar dados para Empresas com Pró Labore (Pie Chart)
       const proLaboreCount = companies.filter(company => company.pro_labore).length;
       const semProLaboreCount = companies.length - proLaboreCount;
-      setEmpresasComProLaboreData({
-        labels: ['Com Pró Labore', 'Sem Pró Labore'],
-        datasets: [
-          {
-            label: 'Número de Empresas',
-            data: [proLaboreCount, semProLaboreCount],
-            backgroundColor: ['rgba(75, 192, 192, 0.8)', 'rgba(255, 206, 86, 0.8)'],
-          },
-        ],
-      });
+      setEmpresasComProLaboreData([
+        { name: 'Com Pró Labore', value: proLaboreCount, fill: COLORS[4] },
+        { name: 'Sem Pró Labore', value: semProLaboreCount, fill: COLORS[5] },
+      ]);
 
-      // Processar dados para Empresas por Status Folha 2
+      // Processar dados para Empresas por Status Folha 2 (Bar Chart)
       const statusFolha2Counts: { [key: string]: number } = {};
       companies.forEach((company) => {
-        const status = company.StatusFolha2 || 'Não Informado'; // Lidar com valores nulos/undefined
+        const status = company.StatusFolha2 || 'Não Informado';
         statusFolha2Counts[status] = (statusFolha2Counts[status] || 0) + 1;
       });
-      setEmpresasPorStatusFolha2Data({
-        labels: Object.keys(statusFolha2Counts),
-        datasets: [
-          {
-            label: 'Número de Empresas',
-            data: Object.values(statusFolha2Counts),
-            backgroundColor: ['rgba(255, 205, 86, 0.8)', 'rgba(75, 192, 192, 0.8)', 'rgba(153, 102, 255, 0.8)', 'rgba(255, 159, 64, 0.8)', 'rgba(100, 200, 150, 0.8)'],
-          },
-        ],
-      });
+      setEmpresasPorStatusFolha2Data(
+        Object.keys(statusFolha2Counts).map((key) => ({ name: key, value: statusFolha2Counts[key] }))
+      );
 
-      // Processar dados para Empresas por Situação
+      // Processar dados para Empresas por Situação (Bar Chart)
       const situacaoCounts: { [key: string]: number } = {};
       companies.forEach((company) => {
-        const situacao = company.Situação || 'Não Informado'; // Lidar com valores nulos/undefined
+        const situacao = company.Situação || 'Não Informado';
         situacaoCounts[situacao] = (situacaoCounts[situacao] || 0) + 1;
       });
-      setEmpresasPorSituacaoData({
-        labels: Object.keys(situacaoCounts),
-        datasets: [
-          {
-            label: 'Número de Empresas',
-            data: Object.values(situacaoCounts),
-            backgroundColor: ['rgba(255, 159, 64, 0.8)', 'rgba(153, 102, 255, 0.8)', 'rgba(75, 192, 192, 0.8)', 'rgba(255, 205, 86, 0.8)', 'rgba(54, 162, 235, 0.8)'],
-          },
-        ],
-      });
+      setEmpresasPorSituacaoData(
+        Object.keys(situacaoCounts).map((key) => ({ name: key, value: situacaoCounts[key] }))
+      );
     }
   }, [companies]);
 
-  const chartOptions = {
-    responsive: true,
-    aspectRatio: 2, // Experimente diferentes valores
-    plugins: {
-      legend: {
-        position: 'top' as const,
-      },
-      title: {
-        display: true,
-        text: '', // O título será definido individualmente para cada gráfico
-      },
-    },
-  };
-
   return (
     <div className="container my-20 mx-auto py-8">
-      <h1 className="text-2xl font-semibold mb-4">Resumo Geral das Empresas</h1>
+      <h1 className="text-2xl font-semibold mb-4">Resumo Geral das Empresas (Recharts)</h1>
       <div className="flex flex-wrap gap-4">
         {empresasPorResponsavelData && (
-          <div className="mb-8 p-4 bg-white text-stone-700 rounded shadow max-w-xl mx-auto max-h-[350px]">
-            <h2 className="text-xl font-semibold mb-2">Empresas por Responsável</h2>
-            <Pie data={empresasPorResponsavelData} options={chartOptions} />
+          <div className="mb-8 p-4 bg-white text-stone-700 rounded shadow max-w-xl mx-auto">
+            <h2 className="text-xl font-semibold mb-2">Empresas por Responsável (Pie Chart)</h2>
+            <PieChart width={400} height={300}>
+              <Pie
+                data={empresasPorResponsavelData}
+                cx="50%"
+                cy="50%"
+                outerRadius={100}
+                dataKey="value"
+                nameKey="name"
+                label
+              >
+                {empresasPorResponsavelData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.fill} />
+                ))}
+              </Pie>
+              <Tooltip />
+              <Legend />
+            </PieChart>
           </div>
         )}
 
         {empresasPorTributacaoData && (
-          <div className="mb-8 p-4 bg-white text-stone-700 rounded shadow max-w-xl mx-auto max-h-[350px]">
-            <h2 className="text-xl font-semibold mb-2">Empresas por Tipo de Tributação</h2>
-            <Bar data={empresasPorTributacaoData} options={chartOptions} />
+          <div className="mb-8 p-4 bg-white text-stone-700 rounded shadow max-w-xl mx-auto">
+            <h2 className="text-xl font-semibold mb-2">Empresas por Tipo de Tributação (RadialBar Chart)</h2>
+            <RadialBarChart width={500} height={300} innerRadius={20} outerRadius={140} data={empresasPorTributacaoData} startAngle={90} endAngle={-270}>
+              <PolarGrid />
+              <PolarAngleAxis dataKey="name" type="category" tickLine={false} />
+              <RadialBar dataKey="value" fill="#8884d8" background={{ fill: '#eee' }} />
+              <Tooltip />
+              <Legend />
+            </RadialBarChart>
           </div>
         )}
 
         {empresasComProLaboreData && (
-          <div className="mb-8 p-4 bg-white text-stone-700 rounded shadow max-w-md mx-auto max-h-[350px]">
-            <h2 className="text-xl stone-600 font-semibold mb-2">Empresas com Pró Labore</h2>
-            <Pie data={empresasComProLaboreData} options={chartOptions} />
+          <div className="mb-8 p-4 bg-white text-stone-700 rounded shadow max-w-md mx-auto">
+            <h2 className="text-xl stone-600 font-semibold mb-2">Empresas com Pró Labore (Pie Chart)</h2>
+            <PieChart width={300} height={250}>
+              <Pie
+                data={empresasComProLaboreData}
+                cx="50%"
+                cy="50%"
+                outerRadius={80}
+                dataKey="value"
+                nameKey="name"
+                label
+              >
+                {empresasComProLaboreData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.fill} />
+                ))}
+              </Pie>
+              <Tooltip />
+              <Legend />
+            </PieChart>
           </div>
         )}
 
         {empresasPorStatusFolha2Data && (
-          <div className="mb-8 p-4 bg-white text-stone-700 rounded shadow max-w-xl mx-auto max-h-[350px]">
-            <h2 className="text-xl font-semibold mb-2">Empresas por Status Folha 2</h2>
-            <Bar data={empresasPorStatusFolha2Data} options={chartOptions} />
+          <div className="mb-8 p-4 bg-white text-stone-700 rounded shadow max-w-xl mx-auto">
+            <h2 className="text-xl font-semibold mb-2">Empresas por Status Folha 2 (Bar Chart)</h2>
+            <BarChart width={500} height={300} data={empresasPorStatusFolha2Data}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="value" fill="#82ca9d" />
+            </BarChart>
           </div>
         )}
 
         {empresasPorSituacaoData && (
-          <div className="mb-8 p-4 bg-white text-stone-700 rounded shadow max-w-xl mx-auto max-h-[350px]">
-            <h2 className="text-xl font-semibold mb-2">Empresas por Situação</h2>
-            <Bar data={empresasPorSituacaoData} options={chartOptions} />
+          <div className="mb-8 p-4 bg-white text-stone-700 rounded shadow max-w-xl mx-auto">
+            <h2 className="text-xl font-semibold mb-2">Empresas por Situação (Bar Chart)</h2>
+            <BarChart width={500} height={300} data={empresasPorSituacaoData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="value" fill="#ffc658" />
+            </BarChart>
           </div>
         )}
       </div>
@@ -239,4 +221,4 @@ const PaginaResumoEmpresas = () => {
   );
 };
 
-export default PaginaResumoEmpresas;
+export default PaginaResumoEmpresasRecharts;
