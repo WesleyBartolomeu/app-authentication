@@ -6,14 +6,14 @@ interface Company {
   COD: number;
   'RAZÃO SOCIAL': string;
   CNPJ: string;
-  TRIBUTAÇÃO: string;
+  TRIBUTACAO: string;
 }
 
 const EmpresasPorTributacaoChart = () => {
   const tributacaoData = useMemo(() => {
     const counts: { [key: string]: number } = {};
     data.forEach((company: Company) => {
-      const tributacao = company.TRIBUTAÇÃO;
+      const tributacao = company.TRIBUTACAO;
       counts[tributacao] = (counts[tributacao] || 0) + 1;
     });
     return Object.keys(counts).map(key => ({ tributacao: key, count: counts[key] }));

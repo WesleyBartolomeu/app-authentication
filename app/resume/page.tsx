@@ -6,21 +6,21 @@ import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, PolarA
 
 interface Company {
   COD: number;
-  razao_social: string;
+  RAZAO_SOCIAL: string;
   CNPJ: string;
-  TRIBUTAÇÃO: string;
-  RESPONSÁVEL: string;
-  DocumentoLançamentoFiscal: string | null | undefined;
-  FolhaPatrimônio: string | null | undefined;
-  Conciliação: string | null | undefined;
-  StatusFolha2: string | null | undefined;
-  pro_labore: string | null | undefined;
+  TRIBUTACAO: string;
+  RESPONSAVEL: string;
+  DOCUMENTO_FOLHA: string | null | undefined;
+  PATRIMONIO: string | null | undefined;
+  CONCILIACAO: string | null | undefined;
+  STATUS_FOLHA: string | null | undefined;
+  PRO_LABORE: string | null | undefined;
   GRUPO: string | null | undefined;
-  Situação: string | null | undefined;
-  perfil_1: string | null | undefined;
-  perfil_2: string | null | undefined;
-  DocumentosRecebimento: number | null | undefined;
-  OBSERVAÇÃO: string | null | undefined;
+  SITUACAO: string | null | undefined;
+  PERFIL_1: string | null | undefined;
+  PERFIL_2: string | null | undefined;
+  LANCAMENTO: number | null | undefined;
+  OBSERVACAO: string | null | undefined;
 }
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d'];
@@ -36,7 +36,7 @@ const PaginaResumoEmpresasRecharts = () => {
   const [empresasComProLaboreData, setEmpresasComProLaboreData] = useState<
     { name: string; value: number; fill: string }[] | null
   >(null);
-  const [empresasPorStatusFolha2Data, setEmpresasPorStatusFolha2Data] = useState<
+  const [empresasPorSTATUS_FOLHAData, setEmpresasPorSTATUS_FOLHAData] = useState<
     { name: string; value: number }[] | null
   >(null);
   const [empresasPorSituacaoData, setEmpresasPorSituacaoData] = useState<
@@ -67,7 +67,7 @@ const PaginaResumoEmpresasRecharts = () => {
       // Processar dados para Empresas por Responsável (Pie Chart)
       const responsavelCounts: { [key: string]: number } = {};
       companies.forEach((company) => {
-        const responsavel = company.RESPONSÁVEL;
+        const responsavel = company.RESPONSAVEL;
         responsavelCounts[responsavel] = (responsavelCounts[responsavel] || 0) + 1;
       });
       setEmpresasPorResponsavelData(
@@ -81,7 +81,7 @@ const PaginaResumoEmpresasRecharts = () => {
       // Processar dados para Empresas por Tributação (RadialBar Chart)
       const tributacaoCounts: { [key: string]: number } = {};
       companies.forEach((company) => {
-        const tributacao = company.TRIBUTAÇÃO;
+        const tributacao = company.TRIBUTACAO;
         tributacaoCounts[tributacao] = (tributacaoCounts[tributacao] || 0) + 1;
       });
       setEmpresasPorTributacaoData(
@@ -93,7 +93,7 @@ const PaginaResumoEmpresasRecharts = () => {
       );
 
       // Processar dados para Empresas com Pró Labore (Pie Chart)
-      const proLaboreCount = companies.filter(company => company.pro_labore).length;
+      const proLaboreCount = companies.filter(company => company.PRO_LABORE).length;
       const semProLaboreCount = companies.length - proLaboreCount;
       setEmpresasComProLaboreData([
         { name: 'Com Pró Labore', value: proLaboreCount, fill: COLORS[4] },
@@ -103,17 +103,17 @@ const PaginaResumoEmpresasRecharts = () => {
       // Processar dados para Empresas por Status Folha 2 (Bar Chart)
       const statusFolha2Counts: { [key: string]: number } = {};
       companies.forEach((company) => {
-        const status = company.StatusFolha2 || 'Não Informado';
+        const status = company.STATUS_FOLHA || 'Não Informado';
         statusFolha2Counts[status] = (statusFolha2Counts[status] || 0) + 1;
       });
-      setEmpresasPorStatusFolha2Data(
+      setEmpresasPorSTATUS_FOLHAData(
         Object.keys(statusFolha2Counts).map((key) => ({ name: key, value: statusFolha2Counts[key] }))
       );
 
-      // Processar dados para Empresas por Situação (Bar Chart)
+      // Processar dados para Empresas por SITUACAO (Bar Chart)
       const situacaoCounts: { [key: string]: number } = {};
       companies.forEach((company) => {
-        const situacao = company.Situação || 'Não Informado';
+        const situacao = company.SITUACAO || 'Não Informado';
         situacaoCounts[situacao] = (situacaoCounts[situacao] || 0) + 1;
       });
       setEmpresasPorSituacaoData(
@@ -185,10 +185,10 @@ const PaginaResumoEmpresasRecharts = () => {
           </div>
         )}
 
-        {empresasPorStatusFolha2Data && (
+        {empresasPorSTATUS_FOLHAData && (
           <div className="mb-8 p-4 bg-white text-stone-700 rounded shadow max-w-xl mx-auto">
             <h2 className="text-xl font-semibold mb-2">Empresas por Status Folha 2 (Bar Chart)</h2>
-            <BarChart width={500} height={300} data={empresasPorStatusFolha2Data}>
+            <BarChart width={500} height={300} data={empresasPorSTATUS_FOLHAData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
               <YAxis />
@@ -201,7 +201,7 @@ const PaginaResumoEmpresasRecharts = () => {
 
         {empresasPorSituacaoData && (
           <div className="mb-8 p-4 bg-white text-stone-700 rounded shadow max-w-xl mx-auto">
-            <h2 className="text-xl font-semibold mb-2">Empresas por Situação (Bar Chart)</h2>
+            <h2 className="text-xl font-semibold mb-2">Empresas por SITUACAO (Bar Chart)</h2>
             <BarChart width={500} height={300} data={empresasPorSituacaoData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
@@ -214,7 +214,7 @@ const PaginaResumoEmpresasRecharts = () => {
         )}
       </div>
 
-      {!empresasPorResponsavelData && !empresasPorTributacaoData && !empresasComProLaboreData && !empresasPorStatusFolha2Data && !empresasPorSituacaoData && (
+      {!empresasPorResponsavelData && !empresasPorTributacaoData && !empresasComProLaboreData && !empresasPorSTATUS_FOLHAData && !empresasPorSituacaoData && (
         <p>Carregando dados do resumo...</p>
       )}
     </div>

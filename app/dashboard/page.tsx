@@ -6,21 +6,21 @@ import CompanySummary from '../components/CompanySumary'; // Certifique-se que o
 
 interface Company {
   COD: number;
-  razao_social: string;
+  RAZAO_SOCIAL: string;
   CNPJ: string;
-  TRIBUTAÇÃO: string;
-  RESPONSÁVEL: string;
-  DocumentoLançamentoFiscal: string | null | undefined;
-  FolhaPatrimônio: string | null | undefined;
-  Conciliação: string | null | undefined;
-  StatusFolha2: string | null | undefined;
-  pro_labore: string | null | undefined;
+  TRIBUTACAO: string;
+  RESPONSAVEL: string;
+  DOCUMENTO_FOLHA: string | null | undefined;
+  PATRIMONIO: string | null | undefined;
+  CONCILIACAO: string | null | undefined;
+  STATUS_FOLHA: string | null | undefined;
+  PRO_LABORE: string | null | undefined;
   GRUPO: string | null | undefined;
-  Situação: string | null | undefined;
-  perfil_1: string | null | undefined;
-  perfil_2: string | null | undefined;
-  DocumentosRecebimento: number | null | undefined;
-  OBSERVAÇÃO: string | null | undefined;
+  SITUACAO: string | null | undefined;
+  PERFIL_1: string | null | undefined;
+  PERFIL_2: string | null | undefined;
+  LANCAMENTO: number | null | undefined;
+  OBSERVACAO: string | null | undefined;
 }
 
 export default function Dashboard() {

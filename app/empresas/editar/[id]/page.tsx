@@ -6,21 +6,21 @@ import { supabase } from '../../../utils/supabaseClient'; // Ajuste o caminho co
 
 interface Company {
   COD: number;
-  razao_social: string;
+  RAZAO_SOCIAL: string;
   CNPJ: string;
-  TRIBUTAÇÃO: string;
-  RESPONSÁVEL: string;
-  DocumentoLançamentoFiscal: string | null | undefined;
-  FolhaPatrimônio: string | null | undefined;
-  Conciliação: string | null | undefined;
-  StatusFolha2: string | null | undefined;
-  pro_labore: string | null | undefined;
+  TRIBUTACAO: string;
+  RESPONSAVEL: string;
+  DOCUMENTO_FOLHA: string | null | undefined;
+  PATRIMONIO: string | null | undefined;
+  CONCILIACAO: string | null | undefined;
+  STATUS_FOLHA: string | null | undefined;
+  PRO_LABORE: string | null | undefined;
   GRUPO: string | null | undefined;
-  Situação: string | null | undefined;
-  perfil_1: string | null | undefined;
-  perfil_2: string | null | undefined;
-  DocumentosRecebimento: number | null | undefined;
-  OBSERVAÇÃO: string | null | undefined;
+  SITUACAO: string | null | undefined;
+  PERFIL_1: string | null | undefined;
+  PERFIL_2: string | null | undefined;
+  LANCAMENTO: number | null | undefined;
+  OBSERVACAO: string | null | undefined;
 }
 
 const EditarEmpresaPage = () => {
@@ -108,64 +108,64 @@ const EditarEmpresaPage = () => {
             <input type="number" id="COD" name="COD" value={formData.COD || ''} readOnly className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
           </div>
           <div className="mb-2">
-            <label htmlFor="razao_social" className="block text-gray-700 text-sm font-bold mb-1">Razão Social</label>
-            <input type="text" id="razao_social" name="razao_social" value={formData.razao_social || ''} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            <label htmlFor="RAZAO_SOCIAL" className="block text-gray-700 text-sm font-bold mb-1">Razão Social</label>
+            <input type="text" id="RAZAO_SOCIAL" name="RAZAO_SOCIAL" value={formData.RAZAO_SOCIAL || ''} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
           </div>
           <div className="mb-2">
             <label htmlFor="CNPJ" className="block text-gray-700 text-sm font-bold mb-1">CNPJ</label>
             <input type="text" id="CNPJ" name="CNPJ" value={formData.CNPJ || ''} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
           </div>
           <div className="mb-2">
-            <label htmlFor="TRIBUTAÇÃO" className="block text-gray-700 text-sm font-bold mb-1">TRIBUTAÇÃO</label>
-            <input type="text" id="TRIBUTAÇÃO" name="TRIBUTAÇÃO" value={formData.TRIBUTAÇÃO || ''} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            <label htmlFor="TRIBUTACAO" className="block text-gray-700 text-sm font-bold mb-1">TRIBUTACAO</label>
+            <input type="text" id="TRIBUTACAO" name="TRIBUTACAO" value={formData.TRIBUTACAO || ''} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
           </div>
           <div className="mb-2">
-            <label htmlFor="RESPONSÁVEL" className="block text-gray-700 text-sm font-bold mb-1">RESPONSÁVEL</label>
-            <input type="text" id="RESPONSÁVEL" name="RESPONSÁVEL" value={formData.RESPONSÁVEL || ''} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            <label htmlFor="RESPONSAVEL" className="block text-gray-700 text-sm font-bold mb-1">RESPONSAVEL</label>
+            <input type="text" id="RESPONSAVEL" name="RESPONSAVEL" value={formData.RESPONSAVEL || ''} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
           </div>
           <div className="mb-2">
-            <label htmlFor="DocumentoLançamentoFiscal" className="block text-gray-700 text-sm font-bold mb-1">DocumentoLançamentoFiscal</label>
-            <input type="text" id="DocumentoLançamentoFiscal" name="DocumentoLançamentoFiscal" value={formData.DocumentoLançamentoFiscal || ''} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            <label htmlFor="DOCUMENTO_FOLHA" className="block text-gray-700 text-sm font-bold mb-1">DOCUMENTO_FOLHA</label>
+            <input type="text" id="DOCUMENTO_FOLHA" name="DOCUMENTO_FOLHA" value={formData.DOCUMENTO_FOLHA || ''} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
           </div>
           <div className="mb-2">
-            <label htmlFor="FolhaPatrimônio" className="block text-gray-700 text-sm font-bold mb-1">FolhaPatrimônio</label>
-            <input type="text" id="FolhaPatrimônio" name="FolhaPatrimônio" value={formData.FolhaPatrimônio || ''} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            <label htmlFor="PATRIMONIO" className="block text-gray-700 text-sm font-bold mb-1">PATRIMONIO</label>
+            <input type="text" id="PATRIMONIO" name="PATRIMONIO" value={formData.PATRIMONIO || ''} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
           </div>
           <div className="mb-2">
-            <label htmlFor="Conciliação" className="block text-gray-700 text-sm font-bold mb-1">Conciliação</label>
-            <input type="text" id="Conciliação" name="Conciliação" value={formData.Conciliação || ''} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            <label htmlFor="CONCILIACAO" className="block text-gray-700 text-sm font-bold mb-1">CONCILIACAO</label>
+            <input type="text" id="CONCILIACAO" name="CONCILIACAO" value={formData.CONCILIACAO || ''} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
           </div>
           <div className="mb-2">
-            <label htmlFor="StatusFolha2" className="block text-gray-700 text-sm font-bold mb-1">StatusFolha2</label>
-            <input type="text" id="StatusFolha2" name="StatusFolha2" value={formData.StatusFolha2 || ''} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            <label htmlFor="STATUS_FOLHA" className="block text-gray-700 text-sm font-bold mb-1">STATUS_FOLHA</label>
+            <input type="text" id="STATUS_FOLHA" name="STATUS_FOLHA" value={formData.STATUS_FOLHA || ''} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
           </div>
           <div className="mb-2">
-            <label htmlFor="pro_labore" className="block text-gray-700 text-sm font-bold mb-1">pro_labore</label>
-            <input type="text" id="pro_labore" name="pro_labore" value={formData.pro_labore || ''} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            <label htmlFor="PRO_LABORE" className="block text-gray-700 text-sm font-bold mb-1">PRO_LABORE</label>
+            <input type="text" id="PRO_LABORE" name="PRO_LABORE" value={formData.PRO_LABORE || ''} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
           </div>
           <div className="mb-2">
             <label htmlFor="GRUPO" className="block text-gray-700 text-sm font-bold mb-1">GRUPO</label>
             <input type="text" id="GRUPO" name="GRUPO" value={formData.GRUPO || ''} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
           </div>
           <div className="mb-2">
-            <label htmlFor="Situação" className="block text-gray-700 text-sm font-bold mb-1">Situação</label>
-            <input type="text" id="Situação" name="Situação" value={formData.Situação || ''} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            <label htmlFor="SITUACAO" className="block text-gray-700 text-sm font-bold mb-1">SITUACAO</label>
+            <input type="text" id="SITUACAO" name="SITUACAO" value={formData.SITUACAO || ''} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
           </div>
           <div className="mb-2">
-            <label htmlFor="perfil_1" className="block text-gray-700 text-sm font-bold mb-1">perfil_1</label>
-            <input type="text" id="perfil_1" name="perfil_1" value={formData.perfil_1 || ''} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            <label htmlFor="PERFIL_1" className="block text-gray-700 text-sm font-bold mb-1">PERFIL_1</label>
+            <input type="text" id="PERFIL_1" name="PERFIL_1" value={formData.PERFIL_1 || ''} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
           </div>
           <div className="mb-2">
-            <label htmlFor="perfil_2" className="block text-gray-700 text-sm font-bold mb-1">perfil_2</label>
-            <input type="text" id="perfil_2" name="perfil_2" value={formData.perfil_2 || ''} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            <label htmlFor="PERFIL_2" className="block text-gray-700 text-sm font-bold mb-1">PERFIL_2</label>
+            <input type="text" id="PERFIL_2" name="PERFIL_2" value={formData.PERFIL_2 || ''} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
           </div>
           <div className="mb-2">
-            <label htmlFor="DocumentosRecebimento" className="block text-gray-700 text-sm font-bold mb-1">DocumentosRecebimento</label>
-            <input type="number" id="DocumentosRecebimento" name="DocumentosRecebimento" value={formData.DocumentosRecebimento || ''} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            <label htmlFor="LANCAMENTO" className="block text-gray-700 text-sm font-bold mb-1">LANCAMENTO</label>
+            <input type="number" id="LANCAMENTO" name="LANCAMENTO" value={formData.LANCAMENTO || ''} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
           </div>
           <div className="mb-2">
-            <label htmlFor="OBSERVAÇÃO" className="block text-gray-700 text-sm font-bold mb-1">OBSERVAÇÃO</label>
-            <input type="text" id="OBSERVAÇÃO" name="OBSERVAÇÃO" value={formData.OBSERVAÇÃO || ''} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+            <label htmlFor="OBSERVACAO" className="block text-gray-700 text-sm font-bold mb-1">OBSERVACAO</label>
+            <input type="text" id="OBSERVACAO" name="OBSERVACAO" value={formData.OBSERVACAO || ''} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
           </div>
           <div className="col-span-full">
             <button type="submit" className="bg-sky-500 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
