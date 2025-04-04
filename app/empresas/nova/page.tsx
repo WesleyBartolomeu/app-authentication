@@ -78,7 +78,17 @@ const NovaEmpresaPage = () => {
         </div>
         <div className="mb-2">
           <label htmlFor="TRIBUTACAO" className="block text-gray-700 text-sm font-bold mb-1">Tributação</label>
-          <input type="text" id="TRIBUTACAO" name="TRIBUTACAO" value={formData.TRIBUTACAO} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+          <select
+            id="TRIBUTACAO"
+            name="TRIBUTACAO"
+            value={formData.TRIBUTACAO}
+            onChange={handleChange}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          >
+            <option value="">Selecione...</option>
+            <option value="Simples Nacional">Simples Nacional</option>
+            <option value="Lucro Presumido">Lucro Presumido</option>
+        </select>
         </div>
         <div className="mb-2">
           <label htmlFor="RESPONSAVEL" className="block text-gray-700 text-sm font-bold mb-1">Responsável</label>
@@ -98,11 +108,31 @@ const NovaEmpresaPage = () => {
         </div>
         <div className="mb-2">
           <label htmlFor="STATUS_FOLHA" className="block text-gray-700 text-sm font-bold mb-1">Status Folha 2</label>
-          <input type="text" id="STATUS_FOLHA" name="STATUS_FOLHA" value={formData.STATUS_FOLHA} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+          <select
+            id="STATUS_FOLHA"
+            name="TSTATUS_FOLHA"
+            value={formData.STATUS_FOLHA}
+            onChange={handleChange}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          >
+            <option value="">Selecione...</option>
+            <option value="Simples Nacional">Ok</option>
+            <option value="Lucro Presumido">S/Mov</option>
+        </select>
         </div>
         <div className="mb-2">
           <label htmlFor="Pro Labore" className="block text-gray-700 text-sm font-bold mb-1">Pró Labore</label>
-          <input type="text" id="PRO_LABORE" name="PRO_LABORE" value={formData.PRO_LABORE} onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+          <select
+            id="PRO_LABORE"
+            name="PRO_LABORE"
+            value={formData.PRO_LABORE}
+            onChange={handleChange}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          >
+            <option value="">Selecione...</option>
+            <option value="Simples Nacional">Sim</option>
+            <option value="Lucro Presumido">Nao</option>
+        </select>        
         </div>
         <div className="mb-2">
           <label htmlFor="GRUPO" className="block text-gray-700 text-sm font-bold mb-1">Grupo</label>
